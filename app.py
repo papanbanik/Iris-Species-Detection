@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from flask import Flask, render_template, request
 import pickle
 
@@ -22,6 +23,7 @@ def submit():
     input_data = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
     prediction = model.predict(input_data)
     return render_template('result.html', prediction=prediction[0])
-
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render sets PORT env variable
+    app.run(host="0.0.0.0", port=port)
